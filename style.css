@@ -1,0 +1,311 @@
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+
+
+.fa-solid.fa-box-circle-check{
+    width: 50px;
+}
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+
+.clearfix:after {
+	clear: both;
+}
+
+body {
+	font-family: sans-serif;
+	background: #f6f9fa;
+}
+
+h1 {
+	color: #ccc;
+	text-align: center;
+}
+
+a {
+  color: #ccc;
+  text-decoration: none;
+  outline: none;
+}
+
+/*Fun begins*/
+.tab_container {
+	width: 90%;
+	margin: 0 auto;
+	padding-top: 70px;
+	position: relative;
+}
+
+input, section {
+  clear: both;
+  padding-top: 10px;
+  display: none;
+}
+
+label {
+  font-weight: 700;
+  font-size: 18px;
+  display: block;
+  float: left;
+  width: 20%;
+  padding: 1.5em;
+  color: #757575;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  background: #f0f0f0;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4,
+#tab5:checked ~ #content5 {
+  display: block;
+  padding: 20px;
+  background: #fff;
+  color: #999;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.tab_container .tab-content p,
+.tab_container .tab-content h3 {
+  -webkit-animation: fadeInScale 0.7s ease-in-out;
+  -moz-animation: fadeInScale 0.7s ease-in-out;
+  animation: fadeInScale 0.7s ease-in-out;
+}
+.tab_container .tab-content h3  {
+  text-align: center;
+}
+
+.tab_container [id^="tab"]:checked + label {
+  background: #fff;
+  box-shadow: inset 0 3px #23ff16;
+}
+
+.tab_container [id^="tab"]:checked + label .fa {
+  color: #23ff16;
+}
+
+label .fa {
+  font-size: 1.3em;
+  margin: 0 0.4em 0 0;
+}
+
+/*Media query*/
+@media only screen and (max-width: 900px) {
+  label span {
+    display: none;
+  }
+  
+  .tab_container {
+    width: 98%;
+  }
+}
+
+/*Content Animation*/
+@keyframes fadeInScale {
+  0% {
+  	transform: scale(0.9);
+  	opacity: 0;
+  }
+  
+  100% {
+  	transform: scale(1);
+  	opacity: 1;
+  }
+}
+
+.no_wrap {
+  text-align:center;
+  color: #23ff16;
+}
+.link {
+  text-align:center;
+}
+
+
+
+h1{
+    font-size: 30px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .icon-btn.add-btn{
+    position: relative;
+    margin-right: 50px;
+    margin-bottom: 50px;
+  }
+  table{
+    width:100%;
+    table-layout: fixed;
+    border: 1px solid #25c481;
+    /* border-bottom: #25c481; */
+  }
+  .tbl-header{
+    background-color: rgba(255,255,255,0.3);
+    background: -webkit-linear-gradient(left, #23ff16, #1697ff);
+    background: linear-gradient(to right, #23ff16, #1697ff);
+   
+   }
+  .tbl-content{
+    height:300px;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+  th{
+    padding: 20px 15px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+    text-transform: uppercase;
+  }
+  td{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 14px;
+    color: black;
+    border-bottom: solid 1px rgba(255,255,255,0.1);
+  }
+  
+  
+  /* demo styles */
+  
+  @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+  body{
+   font-family: 'Roboto', sans-serif;
+  }
+  section{
+    margin: 50px;
+  }
+  
+  
+
+  
+  
+  /* for custom scrollbar for webkit browser*/
+  
+  ::-webkit-scrollbar {
+      width: 6px;
+  } 
+  ::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  } 
+  ::-webkit-scrollbar-thumb {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  }
+
+
+  /* From uiverse.io by @mrhyddenn */
+.icon-btn {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #cdcdcd;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    transition: width 0.2s ease-in-out;
+    font-weight: 500;
+    font-family: inherit;
+  }
+  
+  .add-btn:hover {
+    width: 120px;
+  }
+  
+  .add-btn::before,
+  .add-btn::after {
+    transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: 10px;
+    top: calc(50% - 2px);
+    background: seagreen;
+  }
+  
+  .add-btn::after {
+    right: 14px;
+    overflow: hidden;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+  
+  .add-btn::before {
+    left: 14px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+  
+  .icon-btn:focus {
+    outline: none;
+  }
+  
+  .btn-txt {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  
+  .add-btn:hover::before,
+  .add-btn:hover::after {
+    width: 4px;
+    border-radius: 2px;
+  }
+  
+  .add-btn:hover .btn-txt {
+    opacity: 1;
+  }
+  
+  .add-icon::after,
+  .add-icon::before {
+    transition: all 0.2s ease-in-out;
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 2px;
+    top: calc(50% - 10px);
+    background: seagreen;
+    overflow: hidden;
+  }
+  
+  .add-icon::before {
+    left: 22px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+  
+  .add-icon::after {
+    right: 22px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+  
+  .add-btn:hover .add-icon::before {
+    left: 15px;
+    height: 4px;
+    top: calc(50% - 2px);
+  }
+  
+  .add-btn:hover .add-icon::after {
+    right: 15px;
+    height: 4px;
+    top: calc(50% - 2px);
+  }
