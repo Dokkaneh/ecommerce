@@ -503,3 +503,86 @@ body.dark .home .text{
     #user.active, #product.active, #orders.active{
         display: block;
     }
+
+
+    /* modal*/
+    .label{
+        margin-top: 12px;
+        margin-left:20px;  
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 7px;
+        display: block;
+    
+    }
+   img#product-img{
+        height: 70px;
+        width: 70px;
+        /* size: 15px 15px; */
+    }
+.edit_record{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+    border: solid 3px transparent;
+    background-clip: padding-box;
+    box-shadow: 0px 0px 0px 3px #ffffff00;
+    color: white;
+    min-height: 43px;
+    padding: 0 13px 0 13px;
+margin-top: 30px;
+margin-left:100px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all .5s ease;
+}
+
+.textInputWrapper {
+    --width-of-input: 200px;
+    --border-height: 1px;
+    --border-before-color: rgba(221, 221, 221, 0.39);
+    --border-after-color: #5891ff;
+    --input-hovered-color: #4985e01f;
+    position: relative;
+    width: var(--width-of-input);
+    left: 30px;
+  }
+/* styling of animated border */
+.input-border {
+    position: absolute;
+    background: var(--border-after-color);
+    width: 0%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    transition: 0.3s;
+   }
+  
+  .textInput {
+    color: black;
+ font-size: 0.9rem;
+ background-color: transparent;
+ width: fit-content;
+ box-sizing: border-box;
+ padding-inline: 0.5em;
+ padding-block: 0.7em;
+ border: none;
+ border-bottom: var(--border-height) solid var(--border-before-color);
+  }
+  
+  /* Hover on Input */
+  .textInput:hover {
+    background: var(--input-hovered-color);
+   }
+   
+   .textInput:focus {
+    outline: none;
+   }
+   /* here is code of animated border */
+   .textInput:focus ~ .textInput-border {
+    width: 100%;
+   }
+  

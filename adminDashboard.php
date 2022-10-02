@@ -82,10 +82,13 @@ $orders=$getOrderData->fetchAll(PDO::FETCH_OBJ);
        <section id="user" class="tab-content ">
 		    
             <h1>All Users Information</h1>
-        <button class="icon-btn add-btn">
+        <a href="./add_user.php">
+            
+        <button type="button" class="icon-btn add-btn">
+           
         <div class="add-icon"></div>
         <div class="btn-txt">Add User</div>
-    </button>
+    </button></a>
       <!--for demo wrap-->
       
       <div class="tbl-header">
@@ -105,19 +108,82 @@ $orders=$getOrderData->fetchAll(PDO::FETCH_OBJ);
           <tbody>
           <?php 
     foreach($users as $user){
-
+print_r($user);
+$id=$user->id;
+echo $id;
     
     ?>
           <tr>
               <td><?php echo $user->email;?></td>
-              <td><i class="fa-solid fa-user-pen"></i> </td>
               <td>
-              <a href="delete.php?id=<?php echo $user->id;?>">  
+    <!-- <a href="update_user.php?id=<?php echo $user->id;?>">   -->
+              <i class="fa-solid fa-user-pen" data-bs-toggle="modal" data-bs-target="#editUser"></i> </td>
+              <td>
+              <a href="delete_user.php?id=<?php echo $user->id;?>">  
               <i class="fa-sharp fa-solid fa-trash"></i>
             </a></td>
             
-            </tr> 
-            <?php }?>
+            </tr>
+
+           
+
+ <!-- ////////////////////////MODEL//////////////// -->
+ <div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editUserLabel">Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form method="post">
+<label class =" label" >
+    User Name: 
+<span class="textInputWrapper">
+<input name="name" type="text" value="<?php echo $user->name;?>" class="textInput">
+
+</span>
+
+</label>
+
+<label class =" label" >
+    User Email: 
+<span class="textInputWrapper">
+<input name="email" type="text" value="<?php echo $user->email;?>" class="textInput">
+
+</span>
+
+</label>
+<label class =" label" >
+    User Phone: 
+<span class="textInputWrapper">
+<input name="phone" type="text" value="<?php echo $user->phone;?>" class="textInput">
+
+</span>
+
+</label>
+<label class =" label" >
+    User Address: 
+<span class="textInputWrapper">
+<input name="address" type="text" value="<?php echo $user->address;?>" class="textInput">
+<span class="input-border"></span>
+
+</span>
+
+</label>
+
+<button type="submit" name="update_user" class="edit_record">Save changes</button>
+
+
+</form>    </div>
+    </div>
+  </div>
+</div>
+<?php
+  
+      
+        }
+       ?>
                  </tbody>
         </table>
       </div>
@@ -125,10 +191,11 @@ $orders=$getOrderData->fetchAll(PDO::FETCH_OBJ);
     
                 <section id="product" class="tab-content">
                 <h1>All Products Information</h1>
+                <a href="./add_product.php">
         <button class="icon-btn add-btn">
         <div class="add-icon"></div>
         <div class="btn-txt">Add Product</div>
-    </button>
+    </button></a>
       <!--for demo wrap-->
       
       <div class="tbl-header">
@@ -151,7 +218,8 @@ $orders=$getOrderData->fetchAll(PDO::FETCH_OBJ);
         <table cellpadding="0" cellspacing="0" >
           <tbody>
             <?php
-            $categorie="SELECT categories.name,categories.id FROM categories JOIN products WHERE  products.category_id= categories.id";
+            $categorie="SELECT categories.name,categories.id FROM categories JOIN products
+             WHERE  products.category_id= categories.id";
             $getCatData= $conn->query($categorie);
             $categName=$getCatData->fetchAll(PDO::FETCH_OBJ);
             print_r($categName);
@@ -159,20 +227,25 @@ $orders=$getOrderData->fetchAll(PDO::FETCH_OBJ);
           foreach($products as $product){
             foreach($categName as $category){
                 if($product->category_id == $category->id)
-           $categName=$category->name;
+           $categoryName=$category->name;
             }
 
             
 ?>
           <tr>
-          <td><?php echo $product->image;?></td>
+          <td><img id="product-img" src="<?php echo $product->image;?>" width="50px" height="50px" alt="product"></td>
           <td><?php echo $product->name;?></td>
           <td><?php echo $product->price;?></td>
-          <td><?php echo $categName;?></td>
+          <td><?php echo $categoryName;?></td>
     
           <td><?php echo $product->discount;?></td>
-              <td><i class="fa-sharp fa-solid fa-pen-to-square"></i> </td>
-              <td><i class="fa-sharp fa-solid fa-trash"></i></td>
+              <td>
+              <a href="update_product.php?id=<?php echo $product->id;?>">  
+  
+              <i class="fa-sharp fa-solid fa-pen-to-square"></i> </td>
+              <td>
+              <a href="delete_product.php?id=<?php echo $product->id;?>">  
+              <i class="fa-sharp fa-solid fa-trash"></i></td>
             
             
             </tr> 
@@ -230,3 +303,8 @@ $orders=$getOrderData->fetchAll(PDO::FETCH_OBJ);
 <script src="https://kit.fontawesome.com/8b42dcad4f.js" crossorigin="anonymous"></script>
 </body>
 </html>
+
+<?php 
+
+
+?>
