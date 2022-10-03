@@ -1,3 +1,12 @@
+<?php require_once("connection.php");
+session_start();
+$_SESSION['status'] = true;
+$_SESSION['user_id'] = 1;
+$id = $_SESSION['user_id'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -137,7 +146,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li><a href="./index.html">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
+                            <li class="active"><a href="./shop-grid.html">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
@@ -147,7 +156,7 @@
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
-                            <li class="active"><a href="./contact.html">Contact</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -227,10 +236,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>Contact Us</h2>
+                        <h2>Shopping Cart</h2>
                         <div class="breadcrumb__option">
                             <a href="./index.html">Home</a>
-                            <span>Contact Us</span>
+                            <span>Shopping Cart</span>
                         </div>
                     </div>
                 </div>
@@ -239,88 +248,117 @@
     </section>
     <!-- Breadcrumb Section End -->
 
-    <!-- Contact Section Begin -->
-    <section class="contact spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                    <div class="contact__widget">
-                        <span class="icon_phone"></span>
-                        <h4>Phone</h4>
-                        <p>+01-3-8888-6868</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                    <div class="contact__widget">
-                        <span class="icon_pin_alt"></span>
-                        <h4>Address</h4>
-                        <p>60-49 Road 11378 New York</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                    <div class="contact__widget">
-                        <span class="icon_clock_alt"></span>
-                        <h4>Open time</h4>
-                        <p>10:00 am to 23:00 pm</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 text-center">
-                    <div class="contact__widget">
-                        <span class="icon_mail_alt"></span>
-                        <h4>Email</h4>
-                        <p>hello@colorlib.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Contact Section End -->
-
-    <!-- Map Begin -->
-    <div class="map">
-        <iframe
-            src="https://maps.google.com/maps?q=souq%20bab%20al%20madina&t=&z=13&ie=UTF8&iwloc=&output=embed" "
-            height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-        <div class="map-inside">
-            <i class="icon_pin"></i>
-            <div class="inside-widget">
-                <h4>New York</h4>
-                <ul>
-                    <li>Phone: +12-345-6789</li>
-                    <li>Add: 16 Creek Ave. Farmingdale, NY</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <!-- Map End -->
-
-    <!-- Contact Form Begin -->
-    <div class="contact-form spad">
+    <!-- Shoping Cart Section Begin -->
+    <section class="shoping-cart spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="contact__form__title">
-                        <h2>Leave Message</h2>
+                    <div class="shoping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Products</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if (isset($_SESSION['status'])) {
+                                    $id = $_SESSION['user_id'];
+
+                                    $sql = "SELECT * FROM products
+                                            INNER JOIN cart ON products.id = cart.products_id;";
+                                    $stmt = $conn->query($sql);
+                                    $cart_product = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                    foreach ($cart_product as $item) {
+                                        $product_name = $item['name'];
+                                        $product_image = $item['image'];
+                                        $product_price = $item['price'] * (100 - $item['discount']) / 100;
+                                        $product_quantity = $item['quantity'];
+                                        $total = $product_quantity *  $product_price;
+                                        $user_id = $item['user_id'];
+                                        $cart_id = $item['cart_id'];
+
+                                        echo "<form action='addtocart.php' method='post'>";
+
+                                        echo " <tr>
+                                    <td class='shoping__cart__item'>
+                                        <img src='img/cart/cart-1.jpg'>
+                                        <h5>$product_name</h5>
+                                    </td>
+                                    <td class='shoping__cart__price'>
+                                        $product_price jd
+                                    </td>
+                                    <td class='shoping__cart__quantity'>
+                                        <div class='quantity'>
+                                            <div class='pro-qty'>
+                                            <input name='$cart_id' type='text' value='$product_quantity'>
+                                            <input name='user_id' type='hidden' value='$user_id'>
+                                            <input name='new_total' type='hidden' value='$total'>
+                                                                                        </div>
+                                        </div>
+                                    </td>
+                                    <td class='shoping__cart__total'>
+                                        $total
+                                    </td>
+                                    <td class='shoping__cart__item__close'>
+                                        <span class='icon_close'></span>
+                                    </td>
+                                </tr> ";
+                                    }
+
+                                ?>
+
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <form action="#">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your name">
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <input type="text" placeholder="Your Email">
-                    </div>
-                    <div class="col-lg-12 text-center">
-                        <textarea placeholder="Your message"></textarea>
-                        <button type="submit" class="site-btn">SEND MESSAGE</button>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a href="shop.php" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        <button class="primary-btn cart-btn cart-btn-right" name="updateCart" type="submit" value="update">
+                            <span class="icon_loading"></span> Update Cart</button>
                     </div>
                 </div>
-            </form>
+                </form>
+            <?php
+                                    $id = $_SESSION['user_id'];
+                                    $sql = "SELECT * FROM cart where user_id=$id";
+                                    $stmt = $conn->query($sql);
+                                    $cart_summary = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    $totalsum = 0;
+                                    $shipping = 2;
+                                    foreach ($cart_summary as $item) {
+                                        $totalsum += $item['total'];
+                                        if ($totalsum > 20)
+                                            $shipping = 0;
+                                    }
+                                }
+            ?>
+
+
+
+
+            <div class="col-lg-6 offset-3">
+                <div class="shoping__checkout">
+                    <h5>Cart Total</h5>
+                    <ul>
+                        <li>Subtotal <span> <?php echo $totalsum .  "jd" ?> </span></li>
+                        <li>Total <span><?php echo $totalsum + $shipping . "jd" ?> </span></li>
+                    </ul>
+                    <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                </div>
+            </div>
+            </div>
         </div>
-    </div>
-    <!-- Contact Form End -->
+    </section>
+    <!-- Shoping Cart Section End -->
 
     <!-- Footer Section Begin -->
     <footer class="footer spad">
@@ -379,9 +417,15 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer__copyright">
-                        <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>
+                                    document.write(new Date().getFullYear());
+                                </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
                         <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
                     </div>
                 </div>
@@ -399,7 +443,6 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
-
 
 
 </body>
