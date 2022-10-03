@@ -1,83 +1,47 @@
 <?php
+// session_start();
+// $status = $_SESSION['user'];
+if (isset($status)) {
 
-print_r($_POST);
-var_dump($_POST);
-$data = $_POST;
-$data = $_POST;
-$id=1;
-// validate required fields
-$errors = [];
-foreach (['fullName', 'address1', 'phone', 'email'] as $field) {
-    if (empty($data[$field])) {
-        $errors[] = sprintf('The %s is a required field', $field);
-    }
-}
-if (!empty($errors)) {
-    echo implode('<br/>', $errors);
-    exit;
-}
-$email = $data['email'];
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo 'invalid email format';
-    exit;
-    # code...
-}
-require_once('Connection.php');
+    require_once 'connection.php';
+    $id = $_POST['id'];
+    $name = $_POST['fullName'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $address = $_POST['address1'];
 
-$stmt = $conn->prepare('UPDATE `users` SET
-  phone=:phone,
-  address=:address,
-  email=:email,
- name=:fullName
- WHERE id =:id');
- var_dump($stmt);
-    $stmt->execute(array(
-        ':phone'=>$data["phone"],
-        ':address'=>$data["address1"],
-        ':email'=>$data["email"],
-        ':name'=>$data["fullName"]
-    ));
-//  echo "user updated";
+    $sql = "UPDATE users 
+      SET name=:name,email=:email,phone=:phone,address=:address 
+      WHERE id=$id";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':phone', $phone, PDO::PARAM_STR);
+    $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+    //   $stmt->bindParam(':id',$user->id,PDO::PARAM_STR);
+
+    $stmt->execute();
+    // header("location: admin.php");
+    echo "user updated";
 
 
 
 
-//  $stmt = $conn->prepare("INSERT INTO  `cart` values
 
-//  WHERE `cart_id` =:id");
-//     $stmt->execute(array(
-//         ":phone"=>$data['phone'],
-//         ":address"=>$data['address1'],
-//         ":email"=>$data['email'],
-//         ":name"=>$data['fullName']
-//     ));
-//  echo "user updated";
+    $total = $_POST['totalsum'];
 
-    
-// if (isset($_GET['id']) && isset($_POST['checkform'])) {
-    // $id=1;
-    // $cart_id=2;
-    // // $id = $_GET['id'];
-    // $name = $_POST['fullName'];
-    // $address = $_POST['address'];
-    // $phone = $_POST['phone'];
-    // $email = $_POST['email'];
-    // $sql = "UPDATE `users` SET
-    //  `phone	`='$phone',
-    //  `address`='$address',
-    //  `email`='  $email'
-    //  'name'='$name'
-    //  WHERE `id` =$id";
-    // $stmt = $pdo->prepare($sql);
-    // $stmt->execute([$name, $address, $phone, $email]);
-    // $sql2 = "INSERT INTO `orders`( `payment`, `user_id`) VALUES ('',$cart_id)";
+    $sql = "INSERT INTO orders( `payment`, `user_id`) VALUES ($total,$id)";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
 
 
-    // $stmt = $pdo->prepare($sql2);
-    // $stmt->execute([$payment, $user_id]);
 
-    // require 'index.php';
-    // echo " Confirmation Successfull";
-// } else {
-//     echo "Invalid";
-// }
+
+    $sql = "DELETE FROM cart where user_id=$id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+
+    header("location:checkout.php");
+} else
+    header("Location:./signup.php");

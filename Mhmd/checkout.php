@@ -12,34 +12,38 @@
 </head>
 
 <body>
-    <?php include_once './header.php' ?>
+    <?php
+    //  include_once './header.php'
+    // session_start();
+
+    // $id = $_SESSION['user_id']
+
+    // 
+    ?>
     <!-- php user and cart data recall from database tables   -->
     <?php
     require_once('./connection.php');
     // if (isset($_GET['id']) && isset($_GET['cart_id'])) {
-    $id = 1;
-    $cart_id = 1;
-
+    // $id = 1;
+    // $cart_id = 1;
     //user information sql select statement 
     $stmt = $conn->query("SELECT name, email ,phone,address
     FROM users where id=$id");
-
     $resultusers = $stmt->fetch(PDO::FETCH_OBJ);
-
-
     // get all users info
     $sql = "SELECT `cart`.`products_id`, `cart`.`quantity`, `cart`.`total`,
      `products`.`name`, `products`.`price`, `products`.`discount`
      FROM `products` 
-     JOIN `cart` ON `products`.`id` = `cart`.`products_id`  where cart_id=$cart_id";
+     JOIN `cart` 
+     ON products.id = cart.products_id";
+    //  where cart_id=$cart_id"
     // Cart information sql select statement 
     $stmt2 = $conn->query($sql);
 
     // $stmt2 = $conn->query("SELECT quantity, total FROM cart WHERE cart_id=$cart_id");
-    $resultcart = $stmt2->fetchall(PDO::FETCH_OBJ);
+    $resultcart = $stmt2->fetchAll(PDO::FETCH_OBJ);
 
     // get all users info
-
     ?>
 
 
@@ -49,17 +53,13 @@
     <!-- Html Checkout form  -->
     <section class="checkout spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h6><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click here</a> to enter your code
-                    </h6>
-                </div>
-            </div>
             <div class="checkout__form">
                 <h4>Billing Details</h4>
-                <form action='confirmation.php?id=<?= $id ?>' method="POST">
+                <form action="confirmation.php " method=POST>
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
+                            <input type="hidden" name="id" value="<?php echo $id; ?>">
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
@@ -103,18 +103,31 @@
                                         $totalsum += $item->price * $item->quantity;
 
                                     ?>
+
                                         <li> <?php echo $item->name;
                                                 echo "&nbsp";
                                                 echo "unit price = " . $item->price;
                                                 echo "$" ?><span> </span> <span> <?php echo $item->price * $item->quantity; ?>
                                             </span></li>
-                                    <?php  } ?>
+                                    <?php  };
+                                    if ($totalsum > 20) {
+                                        $delivery = 0;
+                                    } else {
+                                        $delivery = 2;
+                                    };
+                                    ?>
                                 </ul>
                                 <div class="checkout__order__subtotal">Subtotal <span><?= $totalsum ?></span></div>
-                                <div class="checkout__order__total">Total With Delivery <span><?= $totalsum + 2 ?></span></div>
-
+                                <div class="checkout__order__total">Total With Delivery <span><?= $totalsum + $delivery ?></span></div>
+                                <input type="hidden" name="totalsum" value="<?php echo $totalsum; ?>">
                                 <!-- Check out Submit button  -->
-                                <a name='checkform' href="" type="submit" class="btn btn-primary">PLACE ORDER</a>
+
+                                <button class="btn btn-danger" type="submit"> PLACE ORDER</button>
+                                <?php
+                                //  echo  '<a href="./confirmation.php?total=' . $totalsum . '&id=' . $id . '"> ' '</a>'; 
+                                ?>
+                                <!-- './modify.php?id=
+                                //  echo '<a href="view-transaction.php?entry_id='.$single_id.'&user_name=' . $user_name .'">'.$user_name.'</a>'; -->
 
                             </div>
                         </div>
@@ -124,7 +137,9 @@
         </div>
     </section>
 
-    <?php include_once './footer.php' ?>
+
+    <!-- //  include_once './footer.php' -->
+
 </body>
 
 </html>
