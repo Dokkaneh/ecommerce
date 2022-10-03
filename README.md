@@ -3,5 +3,7 @@
 Dokkaneh designed by a proficinal group of programmers (Ahmad Salman (scrum master )/ Manar Olaimat (Product owner) / Ibrahim Khmaiseh/Mohammad Abd-Alaziz /Ahmad Zahran/Nour shatnawi)
 All these brilliant minds created a fabulous website Using these Programming languages (HTML/CSS/JS/SQL/PHP) we Also got a  hand from iron using bootstrap which makes our website full responsivenes
 
-#Wirfram [Dokkaneh.pdf](https://github.com/Dokkaneh/ecommerce/files/9699592/Dokkaneh.pdf)
-![123456789](https://user-images.githubusercontent.com/108795086/193641146-0f15f62d-a01d-4539-9fb4-3289a46f60ab.png)
+#Wirfram & mockup [Dokkaneh.pdf](https://github.com/Dokkaneh/ecommerce/files/9699592/Dokkaneh.pdf)
+
+
+#trello :https://trello.com/b/W3MeJ7GI/dokaaneh?search_id=c8ff7722-d70b-4ff8-bf75-33c6bf2a8883
