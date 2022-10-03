@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 89f7edd7c59b2e07cc76a1138226ea124b950840
 #Dokkaneh
 #Description : okaneh is a full functionality website incloud fresh Vegetables and fruit for users which insure for them a great user experience by the brilliant pages of this website 
 Dokkaneh designed by a proficinal group of programmers (Ahmad Salman (scrum master )/ Manar Olaimat (Product owner) / Ibrahim Khmaiseh/Mohammad Abd-Alaziz /Ahmad Zahran/Nour shatnawi)
