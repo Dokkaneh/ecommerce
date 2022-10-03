@@ -1,19 +1,11 @@
 <?php
 require("connection.php");
+require('./shop/search.php');
+if(!isset($_SESSION)){
+    session_start();
+}
 
-//fetch products
-
-$sql = "SELECT * FROM products";
-$stmt = $conn->query($sql);
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Fetch categories
-
-$sql = "SELECT * FROM categories";
-$stmt = $conn->query($sql);
-$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="zxx">
@@ -24,7 +16,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ogani | Template</title>
+    <title>Dokkaneh</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -100,42 +92,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <!-- Header Section Begin -->
     <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header__top__left">
-                            <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                            <div class="header__top__right__language">
-                                <img src="img/language.png" alt="">
-                                <div>English</div>
-                                <span class="arrow_carrot-down"></span>
-                                <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
-                                </ul>
-                            </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -146,8 +102,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li class="active"><a href="./shop-grid.html">Shop</a></li>
+                            <li><a href="./index.php">Home</a></li>
+                            <li class="active"><a href="./shop.php">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="./shop-details.html">Shop Details</a></li>
@@ -205,13 +161,13 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
+                            <form method="post" action="">
                                 <div class="hero__search__categories">
                                     All Categories
                                     <span class="arrow_carrot-down"></span>
                                 </div>
-                                <input type="text" placeholder="What do yo u need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                                <input type="text" name="search" placeholder="What do yo u need?">
+                                <button type="submit" name="save" class="site-btn">SEARCH</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">
@@ -237,18 +193,26 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
-                            <h4>Department</h4>
+                            <h4>Categories</h4>
                             <ul>
-                                <li><a href="#">Fresh Meat</a></li>
-                                <li><a href="#">Vegetables</a></li>
-                                <li><a href="#">Fruit & Nut Gifts</a></li>
-                                <li><a href="#">Fresh Berries</a></li>
-                                <li><a href="#">Ocean Foods</a></li>
-                                <li><a href="#">Butter & Eggs</a></li>
-                                <li><a href="#">Fastfood</a></li>
-                                <li><a href="#">Fresh Onion</a></li>
-                                <li><a href="#">Papayaya & Crisps</a></li>
-                                <li><a href="#">Oatmeal</a></li>
+                                <?php                    
+                                // Fetch categories
+                                $sql = "SELECT * FROM categories";
+                                $stmt = $conn->query($sql);
+                                $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
+                                <li data-filter=".<?php echo($cat_id) ?>"><a href="http://localhost/ecommerce/shop.php">Show All</a></li>
+
+                                <?php
+                                foreach($categories as $category){
+                                    // $cat_name = $categories[$cat_id]['name'];
+                                    $cat_name = $category['name'];
+                                    $cat_id = $category['id'];
+                                ?>
+                                <li data-filter=".<?php echo($cat_id) ?>"><a href="http://localhost/ecommerce/shop.php?id=<?php echo($cat_id) ?>"><?php echo ($cat_name)?></a></li>
+                    <?php 
+                    }
+                    ?>
                             </ul>
                         </div>
                         <div class="sidebar__item">
@@ -459,15 +423,16 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                     <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
+                                        <select name='sort'>
+                                            <option value='ASC'>Low-to-High</option>
+                                            <option value='DESC'>High-to-Low</option>
+                                        </select>
+
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
+                                    <h6><span><?php echo($count) ?></span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -486,52 +451,108 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     $sql = "SELECT * FROM products";
                     $stmt = $conn->query($sql);
                     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                    
-                    // Fetch categories
-                    
-                    $sql = "SELECT * FROM categories";
-                    $stmt = $conn->query($sql);
-                    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
                     ?>
 
                <!---- Products Grid ----->
 
-                    <div class="row">
-                    
-
+                    <div class="row featured__filter">
                     <?php
-                    foreach ($products as $product){
+                    if(isset($_GET['id'])){
+                        $id = $_GET['id'];
+                        $sql = "SELECT * FROM products WHERE category_id=$id";
+                        $stmt = $conn->query($sql);
+                        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        $check = false;
+                        $count = $stmt->rowCount();
+                    }
+                   if ($check){
+                        foreach ($searched_prod as $product){
+                            $name = $product['name'];
+                            $image = $product['image'];
+                            $price = $product['price'];
+                            $id = $product['id'];
+                            $cat_id = $product['category_id'];
+                            // $cat_name = $categories[$cat_id]['name'];
+                           ?>
+                            <div class='col-lg-4 col-md-6 col-sm-6 '>
+                            
+                                <div class=' featured__item'>          
+                                    <div class='featured__item__pic set-bg' data-setbg='<?php echo $product['image']; ?>' >
+                                    
+                                        <ul class='featured__item__pic__hover'>
+                                            <li><a href="http://localhost/ecommerce/addtocart.php?id=<?php echo $product['id']; ?>" ><i class='fa fa-shopping-cart'></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class='featured__item__text'>
+                                        <h6><a href='shop_details.php?p_id=<?php echo $product['id']; ?>'><?php echo $product['name']; ?></a></h6>
+                                        <h5><?php echo $product['price']; ?> JD</h5>
+                                    </div>
+                                </div>
+                                <input type="hidden"></input>
+                            </div>
+                        
+                     <?php   
+                     }}
+                     
+                    else{
+                        foreach ($products as $product){
                         $name = $product['name'];
                         $image = $product['image'];
                         $price = $product['price'];
                         $id = $product['id'];
+                        $cat_id = $product['category_id'];
+                        // $cat_name = $categories[$cat_id]['name'];
                        ?>
-                        <div class='col-lg-4 col-md-6 col-sm-6'>
+                        <div class='col-lg-4 col-md-6 col-sm-6 '>
                         
-                            <div class='product__item'>          
-                                <div class='product__item__pic set-bg' data-setbg='<?php echo $product['image']; ?>' >
+                            <div class=' featured__item'>          
+                                <div class='featured__item__pic set-bg' data-setbg='<?php echo $product['image']; ?>' >
                                 
-                                    <ul class='product__item__pic__hover'>
-                                        <li><a href="shop_details.php?p_id=<?php echo $product['id']; ?>" ><i class='fa fa-shopping-cart'></i></a></li>
+                                    <ul class='featured__item__pic__hover'>
+                                        <li><a href="http://localhost/ecommerce/addtocart.php?id=<?php echo $product['id']; ?>" ><i class='fa fa-shopping-cart'></i></a></li>
                                     </ul>
                                 </div>
-                                <div class='product__item__text'>
+                                <div class='featured__item__text'>
                                     <h6><a href='shop_details.php?p_id=<?php echo $product['id']; ?>'><?php echo $product['name']; ?></a></h6>
-                                    <h5><?php echo $product['price']; ?></h5>
+                                    <h5><?php echo $product['price']; ?> JD</h5>
                                 </div>
                             </div>
                             <input type="hidden"></input>
                         </div>
                     
-                 <?php   }
+                 <?php   }}
+                    //  $limit = 10;
+                    //  $stmt = $conn->prepare("SELECT * FROM products");
+                    //  $stmt->execute();
+                    //  $pCount = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    // //  echo($pCount);
+                    // $total_results = $stmt->rowCount();
+                    // $total_pages = ceil($total_results/$limit);
+                    // if(!isset($_GET['pge'])){
+                    //     $page = 1;
+                    // } else{
+                    //     $page = $_GET['page'];
+                    // }
+
+                    // $start = ($page-1)*$limit;
+
+                    // $stmt = $conn->prepare("SELECT * FROM products ORDER BY id DESC LIMIT $start, $limit");
+                    // $stmt->execute();
+
+                    // $results = $stmt->fetchAll();
+                    // $conn = null;
+
+                    // $no = $page > 1 ? $start+1 : 1;
+ 
                     ?>
                     
-                    <div class="product__pagination">
+                    <!-- <div class="product__pagination">
                         <a href="#">1</a>
                         <a href="#">2</a>
                         <a href="#">3</a>
                         <a href="#"><i class="fa fa-long-arrow-right"></i></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

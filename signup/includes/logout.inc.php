@@ -1,13 +1,8 @@
 <?php
-$email = $_POST['loggedEmail'];
 
 include "../classes/dbh.class.php";
 
 include '../classes/logout.class.php';
-
-$statusChange = new Logout();
-$statusChange->changestatusUser($email);
-
 
 session_start();
 session_unset();
