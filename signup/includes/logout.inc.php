@@ -16,4 +16,3 @@ session_destroy();
 // Go back to index
 // echo not header because JS
 echo "signup.php";
-exit();
