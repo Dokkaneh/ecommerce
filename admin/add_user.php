@@ -11,61 +11,193 @@ require_once './dbConnection.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="styleAdmin.css">
+<link rel="stylesheet" href="../admin/styleAdmin.css">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<style> 
 
+  form {
+        margin: 100px;
+      }
+      .input-field {
+        position: relative;
+        width: 250px;
+        height: 44px;
+        line-height: 44px;
+        margin-top: 70px;
+    
+      }
+      label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        color: #d3d3d3;
+        transition: 0.2s all;
+        cursor: text;
+      }
+      input {
+        width: 100%;
+        border: 0;
+        outline: 0;
+        padding: 0.5rem 0;
+        border-bottom: 2px solid #d3d3d3;
+        box-shadow: none;
+        color: #111;
+      }
+      input:invalid {
+        outline: 0;
+        /* color: #ff2300;
+          border-color: #ff2300; */
+      }
+      input:focus,
+      input:valid {
+        border-color: #00dd22;
+      }
+      input:focus~label,
+      input:valid~label {
+        font-size: 14px;
+        top: -24px;
+        color: #00dd22;
+      }
+
+</style>
     <title>Add User</title>
 </head>
 <body>
-<form method="post">
-<label class =" label" >
-    User Name: 
-<span class="textInputWrapper">
-<input name="name" type="text" class="textInput">
+   
+<div class="add-User-container">
+  <div class="row add-User-Form">
 
-</span>
+   <div class="card-panel">
 
-</label>
+  <div class="row">
+   
+      <form  id="formLogon" class="col s12 m12 l12">
+   <div class="row">
+                    <div class="input-field col s6"   >
+                        <input type="text" name="fname" id="fname" autocomplete="off" required> 
+                        <label for="fname">First Name</label>
 
-<label class =" label" >
-    User Email: 
-<span class="textInputWrapper">
-<input name="email" type="text"  class="textInput">
+                    </div>
+                  
+                    <div class="input-field col s6"   >
+                        <input type="text" name="lname" id="lname" autocomplete="off" required> 
+                        <label for="lname">Last Name</label>
 
-</span>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="input-field col s6"   >
+                        <input type="email" name="email" id="email"autocomplete="off" required> 
+                        <label for="email">Email</label>
 
-</label>
-<label class =" label" >
-    User Phone: 
-<span class="textInputWrapper">
-<input name="phone" type="text"  class="textInput">
+                    </div>
+                  
+                    
+                </div>
 
-</span>
+               
+                <div class="row">
+                    <div class="input-field col s6"   >
+                        <input type="password" name="password"autocomplete="off"  id="pwd" required> 
+                        <label for="password">Password</label>
 
-</label>
-</label>
-<label class =" label" >
-    User Password: 
-<span class="textInputWrapper">
-<input name="pwd" type="password"  class="textInput">
+                    </div>
+                  
+                    <div class="input-field col s6"   >
+                        <input type="password" name="passwordRep" autocomplete="off" id="pwdRep" required> 
+                        <label for="passwordRep">Repeate Password</label>
 
-</span>
+                    </div> 
+                </div>
+              
+            </form>      </div>
+    
+      </div>
+   </div>
+            
+          
+              
+  </div>
 
-</label>
-<label class =" label" >
-    User Address: 
-<span class="textInputWrapper">
-<input name="address" type="text" class="textInput">
-<span class="input-border"></span>
-
-</span>
-
-</label>
-
-<button type="submit" name="add_user" class="edit_record">Save changes</button>
+</div>
+    
 
 
-</form>
+
+
+<!-- 
+<div class="add-User-container">
+  <div class="row add-User-Form">
+
+   <div class="card-panel">
+<h4 class="header2">
+                New User
+            </h4>
+  <div class="row">
+            <form  id="formLogon" class="col s12 m12 l12">
+   <div class="row">
+                    <div class="input-field col s6"   >
+                        <input type="text" name="fname" id="fname" required> 
+                        <label for="fname">First Name</label>
+
+                    </div>
+                  
+                    <div class="input-field col s6"   >
+                        <input type="text" name="lname" id="lname" required> 
+                        <label for="lname">Last Name</label>
+
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="input-field col s6"   >
+                        <input type="email" name="email" id="email" required> 
+                        <label for="email">Email</label>
+
+                    </div>
+                  
+                    
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s6"   >
+                        <input type="text" name="address" id="address"> 
+                        <label for="address">Address</label>
+
+                    </div>
+                  
+                    <div class="input-field col s6"   >
+                        <input type="text" name="phone" id="phone"> 
+                        <label for="phone">Phone Number</label>
+
+                    </div> 
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s6"   >
+                        <input type="password" name="password" id="pwd" required> 
+                        <label for="fname">Password</label>
+
+                    </div>
+                  
+                    <div class="input-field col s6"   >
+                        <input type="password" name="passwordRep" id="pwdRep" required> 
+                        <label for="lname">Repeate Password</label>
+
+                    </div> 
+                </div>
+              
+            </form>
+            
+            </div>
+   </div>
+            
+          
+              
+  </div>
+
+</div> -->
+      
 <!-- ///////////////////// SCRIPTS ///////////////////// -->
 <script src="./dashboardJs.js"> </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

@@ -21,6 +21,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="./signup/styling/style.css">
+
   </head>
   <header>
     <nav>
@@ -191,5 +193,6 @@
     ></script>
     <script src="./signup/js/app.login.js"></script>
     <script src="./signup/js/app.register.js"></script>
+
   </body>
 </html>
