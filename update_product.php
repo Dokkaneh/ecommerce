@@ -99,7 +99,7 @@ if(isset($_POST['update_user']))
 //   $stmt->bindParam(':id',$user->id,PDO::PARAM_STR);
 
   $stmt->execute();
-  header("location: adminDashboard.php");
+  header("location: admin.php");
 
 }
 

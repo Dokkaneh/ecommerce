@@ -11,7 +11,7 @@ require_once './dbConnection.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styleAdmin.css">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 
     <title>Add User</title>
@@ -96,7 +96,7 @@ if(isset($_POST['add_user']))
 //   $stmt->bindParam(':id',$user->id,PDO::PARAM_STR);
 
   $stmt->execute();
-  header("location: adminDashboard.php");
+  header("location: admin.php");
 
 }
 

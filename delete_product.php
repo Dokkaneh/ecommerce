@@ -6,6 +6,11 @@ $sql = "DELETE FROM products where id = :id";
 $query = $conn->prepare($sql);
 $query->bindParam(":id", $id, PDO::PARAM_STR);
 $query->execute();
-header("Location: adminDashboard.php");
+
+$sql = "DELETE FROM products where id = :id";
+$query = $conn->prepare($sql);
+$query->bindParam(":id", $id, PDO::PARAM_STR);
+$query->execute();
+header("Location: admin.php");
 
 ?>
