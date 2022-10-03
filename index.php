@@ -1,5 +1,8 @@
 <?php
 require("connection.php");
+if(!isset($_SESSION)){
+    session_start();
+}
 
 
 // Fetch Products 
@@ -40,17 +43,18 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
-    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="./ogani-master/css/style.css" type="text/css">
 </head>
 
 <body>
+    <button id="logout">logout</button>
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -76,7 +80,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li><a href="./shop.php">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="./shoping-cart.html">Shoping Cart</a></li>
@@ -533,14 +537,16 @@ $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="./ogani-master/js/jquery-3.3.1.min.js"></script>
+    <script src="./ogani-master/js/bootstrap.min.js"></script>
+    <script src="./ogani-master/js/jquery.nice-select.min.js"></script>
+    <script src="./ogani-master/js/jquery-ui.min.js"></script>
+    <script src="./ogani-master/js/jquery.slicknav.js"></script>
+    <script src="./ogani-master/js/mixitup.min.js"></script>
+    <script src="./ogani-master/js/owl.carousel.min.js"></script>
+    <script src="./ogani-master/js/main.js"></script>
+
+    <script src="./signup/js/app.logout.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
