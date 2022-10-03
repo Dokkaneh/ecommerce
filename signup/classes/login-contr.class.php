@@ -24,5 +24,6 @@ class LoginContr extends Login
 
             $this->location = "index.php";
         }
+        
     }
 }

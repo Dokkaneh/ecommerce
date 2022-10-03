@@ -175,7 +175,7 @@ form.addEventListener("submit", function (e) {
 		const phoneValue = phone.value;
 		const passwordValue = password.value;
 
-		fetch("http://localhost/dokkaneh/signup/includes/register.inc.php", {
+		fetch("http://localhost/dokkaneh/ecommerce/signup/includes/register.inc.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -184,7 +184,7 @@ form.addEventListener("submit", function (e) {
 		})
 			.then((response) => response.text())
 			.then((res) => {
-				if (res == "welcome.php") {
+				if (res == "index.php") {
 					location.href = res;
 				} else {
 					alert(res);

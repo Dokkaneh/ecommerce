@@ -76,7 +76,7 @@ loginForm.addEventListener("submit", function (e) {
 		const emailLoginValue = emailLogin.value;
 		const passwordLoginValue = passwordLogin.value;
 		const Err = document.getElementById("err");
-		fetch("http://localhost/dokkaneh/signup/includes/login.inc.php", {
+		fetch("http://localhost/dokkaneh/ecommerce/signup/includes/login.inc.php", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
